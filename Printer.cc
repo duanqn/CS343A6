@@ -57,6 +57,12 @@ Printer::Printer(unsigned int numStudents, unsigned int numVendingMachines, unsi
 }
 
 Printer::~Printer(){
+  for(unsigned int i = 0; i < m_totalColumns; ++i){
+    if(m_slots[i].isValid == true){
+      flush();  // flush the last line
+      break;
+    }
+  }
   for(int i = 0; i < 23; ++i){
     std::cout << "*"; // use a loop here to explicitly indicate the number of asterisks
   }
