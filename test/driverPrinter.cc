@@ -8,12 +8,6 @@ int main(){
   printer.print(Printer::Kind::Groupoff, 'S');
   printer.print(Printer::Kind::Parent, 'D', 1, 3);
   printer.print(Printer::Kind::Student, 0, 'S');
-  try{
-    printer.print(Printer::Kind::Parent, 1, 'S');
-  }
-  catch(...){
-    std::cerr << "Caught exception" << std::endl;
-  }
   std::cerr << "Test ends" << std::endl;
   return 0;
 }
