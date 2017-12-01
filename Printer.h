@@ -33,10 +33,13 @@ _Monitor Printer{
       switch(args){
         case 2:
           std::cout << label << data1 << "," << data2;
+          break;
         case 1:
           std::cout << label << data1;
+          break;
         case 0:
           std::cout << label;
+          break;
         default:
           assert(false);  // UNEXPECTED ERROR
       }
