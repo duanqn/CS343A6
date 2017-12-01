@@ -2,6 +2,7 @@
 #define PRINTER_H_
 #include <cstring>
 #include <assert.h>
+#include <iostream>
 
 _Monitor Printer{
   private:

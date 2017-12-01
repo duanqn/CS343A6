@@ -1,5 +1,4 @@
 #include "Printer.h"
-#include <iostream>
 
 Printer(unsigned int numStudents, unsigned int numVendingMachines, unsigned int numCouriers):
   m_numStudents(numStudents),
