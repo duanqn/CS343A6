@@ -70,7 +70,7 @@ Printer::~Printer(){
   delete []m_slots;
 }
 
-int Printer::positionLookup(Kind type, int localID = 0){  // private
+int Printer::positionLookup(Kind type, unsigned int localID = 0){  // private
   switch(type){
     case Printer::Kind::Student:
       assert(localID < m_numStudents);
