@@ -57,7 +57,7 @@ _Monitor Printer{
   std::string m_colNames[Kind::TotalKinds];
   int m_startingPos[Kind::TotalKinds];  // the column of the 1st element of each kind
   Info *m_slots;
-  int positionLookup(Kind type, int localID); // look up the column
+  int positionLookup(Kind type, unsigned int localID); // look up the column
   
   public:
   Printer(unsigned int numStudents, unsigned int numVendingMachines, unsigned int numCouriers);
