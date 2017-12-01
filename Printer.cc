@@ -73,12 +73,15 @@ Printer::~Printer(){
 int Printer::positionLookup(Kind type, int localID = 0){  // private
   switch(type){
     case Printer::Kind::Student:
+      assert(localID < m_numStudents);
       return m_startingPos[Printer::Kind::Student] + localID;
       // returned
     case Printer::Kind::Vending:
+      assert(localID < m_numMachines);
       return m_startingPos[Printer::Kind::Vending] + localID;
       // returned
     case Printer::Kind::Courier:
+      assert(localID < m_numCouriers);
       return m_startingPos[Printer::Kind::Courier] + localID;
       //returned
     default:
