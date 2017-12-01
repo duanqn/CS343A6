@@ -1,5 +1,8 @@
 #ifndef WATCARD_H_
 #define WATCARD_H_
+
+#include <uFuture.h>
+
 class WATCard{
   private:
   WATCard(const WATCard &) = delete;  // ban copy-constructor
@@ -15,3 +18,4 @@ class WATCard{
 };
 
 #endif  // WATCARD_H_
+
