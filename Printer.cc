@@ -1,6 +1,6 @@
 #include "Printer.h"
 
-Printer(unsigned int numStudents, unsigned int numVendingMachines, unsigned int numCouriers):
+Printer::Printer(unsigned int numStudents, unsigned int numVendingMachines, unsigned int numCouriers):
   m_numStudents(numStudents),
   m_numMachines(numVendingMachines),
   m_numCouriers(numCouriers),
