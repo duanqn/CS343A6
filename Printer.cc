@@ -89,7 +89,7 @@ void Printer::flush(){  // private
   }
   assert(lastValid >= 0);
   for(unsigned int i = 0; i < m_totalColumns; ++i){
-    if(i > 0 && i <= lastValid){
+    if(i > 0 && (int)i <= lastValid){
       std::cout << "\t";
     }
     if(m_slots[i].isValid == true){
@@ -161,7 +161,7 @@ void Printer::print(Kind kind, unsigned int localID, char state){
           || kind == Printer::Kind::Vending
           || kind == Printer::Kind::Courier);
   int pos = positionLookup(kind, localID);
-  if(m_slots[pos].isValid = true){
+  if(m_slots[pos].isValid == true){
     flush();
   }
   m_slots[pos].isValid = true;
@@ -175,7 +175,7 @@ void Printer::print(Kind kind, unsigned int localID, char state, int value1){
           || kind == Printer::Kind::Vending
           || kind == Printer::Kind::Courier);
   int pos = positionLookup(kind, localID);
-  if(m_slots[pos].isValid = true){
+  if(m_slots[pos].isValid == true){
     flush();
   }
   m_slots[pos].isValid = true;
@@ -190,7 +190,7 @@ void Printer::print(Kind kind, unsigned int localID, char state, int value1, int
           || kind == Printer::Kind::Vending
           || kind == Printer::Kind::Courier);
   int pos = positionLookup(kind, localID);
-  if(m_slots[pos].isValid = true){
+  if(m_slots[pos].isValid == true){
     flush();
   }
   m_slots[pos].isValid = true;

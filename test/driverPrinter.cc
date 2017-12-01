@@ -3,8 +3,7 @@
 int main(){
   std::cout << "Test driver for Printer" << std::endl;
   std::cout << "Test starts" << std::endl;
-  Printer printer;
-  printer.print(2, 2, 3);
+  Printer printer(2, 2, 3);
   
   std::cout << "Test ends" << std::endl;
   return 0;
