@@ -1,3 +1,4 @@
+#pragma once 
 
 _Task Parent {
     void main();

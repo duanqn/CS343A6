@@ -1,7 +1,7 @@
 #pragma once
 
-class Printer;
-class VendingMachine;
+_Monitor Printer;
+_Task VendingMachine;
 
 _Task NameServer {
   void main();
@@ -10,5 +10,8 @@ _Task NameServer {
   void VMregister( VendingMachine* vendingmachine );
   VendingMachine* getMachine( unsigned int id );
   VendingMachine** getMachineList();
+#ifdef DEBUG
+  NameServer() {}
+#endif
 };
 

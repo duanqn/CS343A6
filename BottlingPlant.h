@@ -1,7 +1,7 @@
 #pragma once 
 
-class Printer;
-class NameServer;
+_Monitor Printer;
+_Task NameServer;
 
 _Task BottlingPlant {
   void main();
@@ -11,5 +11,8 @@ _Task BottlingPlant {
                unsigned int maxShippedPerFlavour, unsigned int maxStockPerFlavour,
                unsigned int timeBetweenShipments );
   void getShipment( unsigned int cargo[] );
+#ifdef DEBUG
+  BottlingPlant() {}
+#endif
 };
 

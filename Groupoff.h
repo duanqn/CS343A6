@@ -2,7 +2,7 @@
 
 #include "WATCard.h"
 
-class Printer;
+_Monitor Printer;
 
 _Task Groupoff {
     void main();

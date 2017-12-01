@@ -1,7 +1,7 @@
 #pragma once 
 
-class Printer;
-class NameServer;
+_Monitor Printer;
+_Task NameServer;
 class WATCard;
 
 _Task VendingMachine {
@@ -18,5 +18,8 @@ _Task VendingMachine {
   void restocked();
   _Nomutex unsigned int cost();
   _Nomutex unsigned int getId();
+#ifdef DEBUG
+  VendingMachine() {}
+#endif
 };
 

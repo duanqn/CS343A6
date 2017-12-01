@@ -1,3 +1,9 @@
+#pragma once 
+
+_Monitor Printer;
+_Monitor Bank;
+class WATCard;
+
 _Task WATCardOffice {
     struct Job {                              // marshalled arguments and return future
         Args args;                            // call arguments (YOU DEFINE "Args")
