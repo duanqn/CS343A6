@@ -9,6 +9,7 @@
 
 _Monitor Printer {};
 
+// NameServer test methods
 void NameServer::main() {}
 static int numMachine = 3;
 static VendingMachine** machines;
@@ -22,6 +23,7 @@ VendingMachine** NameServer::getMachineList() {
   return machines;
 }
 
+// BottlingPlant test methods
 void BottlingPlant::main() {}
 void BottlingPlant::getShipment( unsigned int cargo[] ) {
   std::cout << "getShipment() " << std::endl
@@ -43,9 +45,10 @@ void BottlingPlant::getShipment( unsigned int cargo[] ) {
   cargo[2] = 3;
   cargo[3] = 3;
 }
+BottlingPlant::~BottlingPlant() {}
 
+// VendingMachine test methods
 void VendingMachine::main() {}
-
 unsigned int* VendingMachine::inventory() {
   static unsigned int inventory[] = {2, 4, 8, 16};
   std::cout << "inventory() " << std::endl
@@ -58,6 +61,8 @@ unsigned int* VendingMachine::inventory() {
   
   return inventory;
 }
+void VendingMachine::restocked() {}
+
 
 MPRNG g_random( getpid() );
 ConfigParms g_config;

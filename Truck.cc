@@ -54,6 +54,7 @@ void Truck::main() {
         // deliver that amount and update cargo stock
         cargo[flavourIndex] -= delivery;
         vmStock[flavourIndex] += delivery;
+        machineList[vmIndex]->restocked();
       } // for
 
     } // for VM
