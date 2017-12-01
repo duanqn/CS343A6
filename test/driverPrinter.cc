@@ -1,10 +1,19 @@
 #include "../Printer.h"
 #include <iostream>
 int main(){
-  std::cout << "Test driver for Printer" << std::endl;
-  std::cout << "Test starts" << std::endl;
+  std::cerr << "Test driver for Printer" << std::endl;
+  std::cerr << "Test starts" << std::endl;
   Printer printer(2, 2, 3);
-  
-  std::cout << "Test ends" << std::endl;
+  printer.print(Printer::Kind::Parent, 'S');
+  printer.print(Printer::Kind::Groupoff, 'S');
+  printer.print(Printer::Kind::Parent, 'D', 1, 3);
+  printer.print(Printer::Kind::Student, 0, 'S');
+  try{
+    printer.print(Printer::Kind::Parent, 1, 'S');
+  }
+  catch(Exception &e){
+    std::cout << e << std::endl;
+  }
+  std::cerr << "Test ends" << std::endl;
   return 0;
 }
