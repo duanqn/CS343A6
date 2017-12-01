@@ -60,7 +60,6 @@ unsigned int* VendingMachine::inventory() {
 }
 
 MPRNG g_random( getpid() );
-
 ConfigParms g_config;
 
 void uMain::main() {

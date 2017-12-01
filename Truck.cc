@@ -11,9 +11,8 @@ extern ConfigParms g_config;
 Truck::Truck( Printer & prt, NameServer & nameServer, BottlingPlant & plant,
   unsigned int numVendingMachines, unsigned int maxStockPerFlavour ) 
   : printer( prt ), server( nameServer), plant( plant ), 
-    numVendingMachines( numVendingMachines ), 
-    maxStockPerFlavour( maxStockPerFlavour) {
-
+    numVendingMachines( numVendingMachines ), maxStockPerFlavour( maxStockPerFlavour) 
+    {
   // obtain the location of each vending machine
   machineList = server.getMachineList();
 }
@@ -23,7 +22,7 @@ void Truck::main() {
 
   for ( ;; ) {
     // yeild [1, 10] times
-    yield( ::g_random( 10 ) );
+    yield( ::g_random( 1, 10 ) );
 
     try { _Enable {
       //obtain a new shipment of soda
@@ -46,7 +45,7 @@ void Truck::main() {
       // get the inventory for this vending machine
       unsigned int* vmStock = machineList[vmIndex]->inventory();
 
-      for ( unsigned int flavourIndex = 0; flavourIndex < NUM_FLAVOURS; flavourIndex += 1 ) {
+      for ( unsigned int flavourIndex = 0; flavourIndex < ::NUM_FLAVOURS; flavourIndex += 1 ) {
         // determine how much to deliver 
         unsigned int delivery = ::g_config.maxStockPerFlavour - vmStock[flavourIndex];
         if ( delivery > cargo[flavourIndex] )
