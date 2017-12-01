@@ -149,9 +149,8 @@ void Printer::print(Printer::Kind kind, char state, int value1, int value2){
   }
   m_slots[pos].isValid = true;
   m_slots[pos].label = state;
-  m_slots[pos].args = 1;
-  m_slots[pos].data1 = value1;
   m_slots[pos].args = 2;
+  m_slots[pos].data1 = value1;
   m_slots[pos].data2 = value2;
 }
 
@@ -195,8 +194,7 @@ void Printer::print(Kind kind, unsigned int localID, char state, int value1, int
   }
   m_slots[pos].isValid = true;
   m_slots[pos].label = state;
-  m_slots[pos].args = 1;
-  m_slots[pos].data1 = value1;
   m_slots[pos].args = 2;
+  m_slots[pos].data1 = value1;
   m_slots[pos].data2 = value2;
 }
