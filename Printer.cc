@@ -34,20 +34,20 @@ Printer::Printer(unsigned int numStudents, unsigned int numVendingMachines, unsi
   for(int i = 0; i < 6; ++i){
     std::cout << m_colNames[i] << "\t";
   }
-  for(int i = 0; i < m_numStudents; ++i){
+  for(unsigned int i = 0; i < m_numStudents; ++i){
     std::cout << m_colNames[Printer::Kind::Student] << i << "\t";
   }
-  for(int i = 0; i < m_numMachines; ++i){
+  for(unsigned int i = 0; i < m_numMachines; ++i){
     std::cout << m_colNames[Printer::Kind::Vending] << i << "\t";
   }
-  for(int i = 0; i < m_numCouriers; ++i){
+  for(unsigned int i = 0; i < m_numCouriers; ++i){
     std::cout << m_colNames[Printer::Kind::Courier] << i;
     if(i < m_numCouriers - 1){
       std::cout << "\t";  // eliminate trailing spaces
     }
   }
   std::cout << std::endl;
-  for(int i = 0; i < m_totalColumns; ++i){
+  for(unsigned int i = 0; i < m_totalColumns; ++i){
     std::cout << "*******"; // 7 asterisks
     if(i < m_totalColumns - 1){
       std::cout << "\t";      // eliminate trailing spaces
@@ -100,7 +100,7 @@ void Printer::flush(){  // private
   std::cout << std::endl;
 }
 
-void Printer::print(Printer::Kind kind, char state, int value1){
+void Printer::print(Printer::Kind kind, char state){
   // Possible callers: Parent, Groupoff, WATCardOffice, NameServer, Truck, BottlingPlant
   assert(kind == Printer::Kind::Parent
           || kind == Printer::Kind::Groupoff
