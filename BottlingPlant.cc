@@ -3,6 +3,7 @@
 #include "VendingMachine.h"
 #include "MPRNG.h"
 #include "config.h"
+#include "Printer.h"
 
 extern MPRNG g_random;
 extern ConfigParms g_config;
@@ -24,7 +25,7 @@ BottlingPlant::~BottlingPlant() {
 
 
 void BottlingPlant::main() {
-  
+  printer.print( Printer::Kind::BottlingPlant, 'S' );
 
   for ( ;; ) {
     // yield for TimeBetweenShipments times (not random)
@@ -36,14 +37,24 @@ void BottlingPlant::main() {
     storage[ VendingMachine::Flavours::RockRootBeer]     = ::g_random( maxShippedPerFlavour );
     storage[ VendingMachine::Flavours::JazzLime]         = ::g_random( maxShippedPerFlavour );
 
+    printer.print( Printer::Kind::BottlingPlant, 'G',
+      storage[ VendingMachine::Flavours::BluesBlackCherry] +
+      storage[ VendingMachine::Flavours::ClassicCreamSoda] +
+      storage[ VendingMachine::Flavours::RockRootBeer] +
+      storage[ VendingMachine::Flavours::JazzLime] );
+
     // wait for the truck to get the shipment or for a terminate call
     _Accept( ~BottlingPlant ) {
       // wait for the truck to come by and tell it to shutdown
       shutdownFlag = true;
       _Accept( getShipment ) {
+        printer.print( Printer::Kind::BottlingPlant, 'F' );
         return;
       }
-    } or _Accept( getShipment )
+    } 
+    or _Accept( getShipment ) {
+      printer.print( Printer::Kind::BottlingPlant, 'P' );
+    }
 
   } // for
 
