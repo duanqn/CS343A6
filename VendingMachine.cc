@@ -3,6 +3,7 @@
 #include "WATCard.h"
 #include "MPRNG.h"
 #include "config.h"
+#include "Printer.h"
 
 extern MPRNG g_random;
 extern ConfigParms g_config;
@@ -20,11 +21,16 @@ VendingMachine::VendingMachine( Printer & prt, NameServer & nameServer,
 }
 
 void VendingMachine::main() {
+  printer.print( Printer::Kind::Vending, id, 'S' );
+
   for ( ;; ) {
     // a truck has come by to restock
     _Accept( inventory ) {
       // restocking is in progress, wait till completion
-      _Accept( restocked );
+      printer.print( Printer::Kind::Vending, id, 'r' );
+      _Accept( restocked ) {
+        printer.print( Printer::Kind::Vending, id, 'R' );
+      }
     } 
 
     // a student wants to buy soda
@@ -38,6 +44,8 @@ void VendingMachine::main() {
       else if ( ::g_random( 4 ) == 0 ) {
         // 1 in 5 chance succeded, student gets free soda
         sodaStock[studentOrder.flavour] -= 1;
+        printer.print( Printer::Kind::Vending, id, 'B', 
+          studentOrder.flavour, sodaStock[studentOrder.flavour] );
         studentOrder.response = StudentOrder::Response::Free;
       }
 
@@ -50,6 +58,8 @@ void VendingMachine::main() {
         // debit the card, give the student the soda
         studentOrder.card->withdraw( sodaCost );
         sodaStock[studentOrder.flavour] -= 1;
+        printer.print( Printer::Kind::Vending, id, 'B', 
+          studentOrder.flavour, sodaStock[studentOrder.flavour] );
         studentOrder.response = StudentOrder::Response::Purchase;
       }
 
@@ -60,6 +70,7 @@ void VendingMachine::main() {
 
     // dtor call put last to prevent student or truck from being left blocked
     or _Accept( ~VendingMachine ){
+      printer.print( Printer::Kind::Vending, id, 'F' );
       return;
     }
 

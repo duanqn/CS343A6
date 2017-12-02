@@ -3,15 +3,16 @@
 #include "../Student.h"
 #include "../WATCard.h"
 #include "../MPRNG.h"
+#include "../Printer.h"
 
 #include <iostream>
-
-_Monitor Printer {};
+#include <sstream>
 
 static VendingMachine* v;
 static WATCard wc;
 static unsigned int balance = 20;
-static const int numtimes = 10;
+static const int numtimes = 20;
+static std::ostringstream out;
 
 // NameServer test methods
 void NameServer::main() {}
@@ -21,53 +22,54 @@ void NameServer::VMregister( VendingMachine* vm ) {}
 WATCard::WATCard() {}
 void WATCard::withdraw( unsigned int amount ) {
   balance -= amount;
-  std::cerr << "withdrew " << amount
-            << " balance now: " << balance << std::endl;
+  out << "withdrew " << amount
+            << " balance now: " << balance << '\n';
 }
 unsigned int WATCard::getBalance() {
-  std::cerr << "getBalance() = " << balance << std::endl;
+  out << "getBalance() = " << balance << '\n';
   return balance;
 }
 
 // Student test methods
 void Student::main() {
-  std::cerr << "Student start " << std::endl;
+  out << "Student start " << '\n';
   for ( int i = 0; i < numtimes; i += 1 ) {
     try { _Enable {
-      std::cerr << "buy()" << std::endl;
-      std::cerr << "balance: " << balance << std::endl;
-      std::cerr << "Stock: " << v->inventory()[0] << std::endl;
+      out << "buy()" << '\n';
+      out << "balance: " << balance << '\n';
+      out << "Stock: " << v->inventory()[0] << '\n';
       v->restocked();
       v->buy( VendingMachine::Flavours::BluesBlackCherry, wc );
-      std::cerr << "\tPurchase!" << std::endl;
+      out << "\tPurchase!" << '\n';
     }}
     catch ( VendingMachine::Free ) {
-      std::cerr << "\tFree!" << std::endl;
+      out << "\tFree!" << '\n';
 
     }
     catch ( VendingMachine::Funds ) {
-      std::cerr << "\tFunds!" << std::endl;
+      out << "\tFunds!" << '\n';
       balance += 13;
     }
     catch ( VendingMachine::Stock ) {
-      std::cerr << "\tStock!" << std::endl;
+      out << "\tStock!" << '\n';
       v->inventory()[0] += 10;
       v->restocked();
     }
   }
-  std::cerr << "Student end " << std::endl;
+  out << "Student end " << '\n';
 }
 
 MPRNG g_random( getpid() );
 
 void uMain::main() {
-  std::cerr << "main() start " << std::endl;
-
-  Printer p;
-  NameServer ns;
-  v = new VendingMachine( p, ns, 0, 3, 5 );
-  { Student s; }
-  delete v;
-
-  std::cerr << "main() end " << std::endl;
+  {
+    out << "main() start " << '\n';
+    Printer p( 1, 1, 1 );
+    NameServer ns;
+    v = new VendingMachine( p, ns, 0, 3, 5 );
+    { Student s; }
+    delete v;
+    out << "main() end " << '\n';
+  }
+  std::cout << out.str() << std::endl;
 }
