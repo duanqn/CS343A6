@@ -1,11 +1,12 @@
 #include "../VendingMachine.h"
-#include "../Printer.h"
 #include "../NameServer.h"
 #include "../Student.h"
 #include "../WATCard.h"
 #include "../MPRNG.h"
 
 #include <iostream>
+
+_Monitor Printer {};
 
 static VendingMachine* v;
 static WATCard wc;

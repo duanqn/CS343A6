@@ -3,15 +3,14 @@
 #include "../BottlingPlant.h"
 #include "../NameServer.h"
 #include "../Truck.h"
+
 #include <iostream>
 
 _Monitor Printer {};
 
-MPRNG g_random( getpid() );
-ConfigParms g_config;
-
 static BottlingPlant* bp;
 
+// Truck test methods
 void Truck::main() {
   std::cout << "start tester " << std::endl;
 
@@ -37,7 +36,10 @@ Truck::Truck( Printer & prt, NameServer & nameServer, BottlingPlant & plant,
     numVendingMachines( numVendingMachines ), maxStockPerFlavour( maxStockPerFlavour) 
     {}
 
+// NameServer test methods
 void NameServer::main() {}
+
+MPRNG g_random( getpid() );
 
 void uMain::main() {
   Printer p;
