@@ -5,6 +5,7 @@ int main(){
   WATCard card1, card2;
   std::cerr << "Test for WATCard" << std::endl;
   std::cerr << "Test begins" << std::endl;
+  uProcessor p[3];
   COBEGIN
     BEGIN
       card1.deposit(10);
