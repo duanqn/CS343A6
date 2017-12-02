@@ -1,13 +1,15 @@
 #pragma once
 
 #include <uFuture.h>
+#include <uSemaphore.h>
 
 class WATCard{
   private:
   WATCard(const WATCard &) = delete;  // ban copy-constructor
   WATCard & operator = (const WATCard &) = delete;  // ban assign operator
   unsigned int m_money; // money in this WATCard
-  //R-W
+  uSemaphore m_mutex;
+  uSemaphore m_bench; // wait for money
   public:
   typedef Future_ISM<WATCard *> FWATCard; // future watcard pointer
   WATCard();
