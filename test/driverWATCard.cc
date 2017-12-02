@@ -34,8 +34,8 @@ int main(){
       std::osacquire(std::cerr) << "Thread 4 withdraws 1 from card 2" << std::endl;
     END
   COEND
-  std::cerr << "Card 1 balance: " << card1.getBalance();
-  std::cerr << "Card 2 balance: " << card2.getBalance();
+  std::cerr << "Card 1 balance: " << card1.getBalance() << std::endl;
+  std::cerr << "Card 2 balance: " << card2.getBalance() << std::endl;
   std::cerr << "Test ends" << std::endl;
   return 0;
 }
