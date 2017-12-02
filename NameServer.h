@@ -10,6 +10,7 @@ _Task NameServer {
   void VMregister( VendingMachine* vendingmachine );
   VendingMachine* getMachine( unsigned int id );
   VendingMachine** getMachineList();
+  
 #ifdef DEBUG
   NameServer() {}
 #endif
