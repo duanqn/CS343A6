@@ -18,7 +18,9 @@ void WATCard::deposit(unsigned int amount){
 void WATCard::withdraw(unsigned int amount){
   m_mutex.P();  // acquire lock
   while(m_money < amount){
+    m_mutex.V();
     m_bench.P();  // wait on bench
+    m_mutex.P();
   }
   assert(m_money >= amount);
   m_money -= amount;
