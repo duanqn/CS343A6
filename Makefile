@@ -3,7 +3,7 @@ CXXFLAGS = -g -Wall -MMD -std=c++11      # compiler flags
 MAKEFILE_NAME = ${firstword ${MAKEFILE_LIST}}	# makefile name
 
 ifneq (${TEST},)
-  MAINOBJ = test/driver${TEST}.o
+  MAINOBJ = test/driver${TEST}.o Printer.o
   CXXFLAGS += -DDEBUG
   OBJECTS2 = ${TEST}.o ${MAINOBJ} # list of object files
 else
