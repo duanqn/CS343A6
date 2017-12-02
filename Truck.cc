@@ -4,6 +4,7 @@
 #include "VendingMachine.h"
 #include "NameServer.h"
 #include "BottlingPlant.h"
+#include "Printer.h"
 
 extern MPRNG g_random;
 extern ConfigParms g_config;
@@ -18,7 +19,7 @@ Truck::Truck( Printer & prt, NameServer & nameServer, BottlingPlant & plant,
 }
 
 void Truck::main() {
-  unsigned int cargo[ ::NUM_FLAVOURS ];
+  printer.print( Printer::Kind::Truck, 'S' );
 
   for ( ;; ) {
     // yeild [1, 10] times
@@ -27,34 +28,45 @@ void Truck::main() {
     try { _Enable {
       //obtain a new shipment of soda
       plant.getShipment( cargo ); 
+      printer.print( Printer::Kind::Truck, 'P', remainingSoda() );
     }}
     catch ( BottlingPlant::Shutdown ) {
       // just terminate and wait for deletion 
+      printer.print( Printer::Kind::Truck, 'F' );
       return;
     }
 
     VM: for ( unsigned int cycleCount = 0 ;; vmIndex = ( vmIndex + 1 ) % numVendingMachines, cycleCount += 1 ) {
       // check if we have run out of cargo stock
-      if ( ( cargo[ VendingMachine::Flavours::BluesBlackCherry] == 0
-          && cargo[ VendingMachine::Flavours::ClassicCreamSoda] == 0
-          && cargo[ VendingMachine::Flavours::RockRootBeer]     == 0
-          && cargo[ VendingMachine::Flavours::JazzLime]         == 0 )
-          || cycleCount == numVendingMachines )
+      if ( remainingSoda() == 0 || cycleCount == numVendingMachines )
     break VM;
+
+      printer.print( Printer::Kind::Truck, 'd', vmIndex, remainingSoda() );
 
       // get the inventory for this vending machine
       unsigned int* vmStock = machineList[vmIndex]->inventory();
 
-      for ( unsigned int flavourIndex = 0; flavourIndex < ::NUM_FLAVOURS; flavourIndex += 1 ) {
+      // keep track of soda slots not replenished for the printer
+      unsigned int numNotReplenished = 0;
+      for ( unsigned int flavourIndex = 0;
+            flavourIndex < VendingMachine::Flavours::TotalFlavourNumber;
+            flavourIndex += 1 ) {
         // determine how much to deliver 
         unsigned int delivery = ::g_config.maxStockPerFlavour - vmStock[flavourIndex];
-        if ( delivery > cargo[flavourIndex] )
+        if ( delivery > cargo[flavourIndex] ){
+          // could not full restock, add difference to numNotReplenished
+          numNotReplenished += delivery - cargo[flavourIndex];
           delivery = cargo[flavourIndex];
+        }
 
         // deliver that amount and update cargo stock
         cargo[flavourIndex] -= delivery;
         vmStock[flavourIndex] += delivery;
       } // for
+
+      printer.print( Printer::Kind::Truck, 'U', vmIndex, numNotReplenished );
+      printer.print( Printer::Kind::Truck, 'D', vmIndex, remainingSoda() );
+      machineList[vmIndex]->restocked();
 
     } // for VM
 

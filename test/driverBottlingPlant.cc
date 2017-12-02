@@ -3,32 +3,32 @@
 #include "../BottlingPlant.h"
 #include "../NameServer.h"
 #include "../Truck.h"
+#include "../Printer.h"
+
 #include <iostream>
-
-_Monitor Printer {};
-
-MPRNG g_random( getpid() );
-ConfigParms g_config;
+#include <sstream>
 
 static BottlingPlant* bp;
+static std::ostringstream out;
 
+// Truck test methods
 void Truck::main() {
-  std::cout << "start tester " << std::endl;
+  out << "start tester " << '\n';
 
   unsigned int cargo[4];
   for ( ;; ) {
     try { _Enable {
       bp->getShipment( cargo );
-      std::cout << "continue tester " << std::endl;
+      out << "continue tester " << '\n';
     }}
     catch ( BottlingPlant::Shutdown ) {
-      std::cout << "end tester " << std::endl;
+      out << "end tester " << '\n';
       return;
     }
-    std::cout << cargo[0] << ' '
+    out << cargo[0] << ' '
               << cargo[1] << ' '
               << cargo[2] << ' '
-              << cargo[3] << std::endl;
+              << cargo[3] << '\n';
   }
 }
 Truck::Truck( Printer & prt, NameServer & nameServer, BottlingPlant & plant,
@@ -37,14 +37,19 @@ Truck::Truck( Printer & prt, NameServer & nameServer, BottlingPlant & plant,
     numVendingMachines( numVendingMachines ), maxStockPerFlavour( maxStockPerFlavour) 
     {}
 
+// NameServer test methods
 void NameServer::main() {}
 
-void uMain::main() {
-  Printer p;
-  NameServer ns;
+MPRNG g_random( getpid() );
 
-  bp = new BottlingPlant( p, ns, 4, 4, 4, 4 );
-  yield( 30 );
-  delete bp;
-   
+void uMain::main() {
+  {
+    Printer p( 1, 1, 1 );
+    NameServer ns;
+
+    bp = new BottlingPlant( p, ns, 4, 4, 4, 4 );
+    yield( 30 );
+    delete bp;
+  }
+  std::cout << out.str() << std::endl;
 }

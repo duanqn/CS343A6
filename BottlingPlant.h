@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "config.h"
+#include "VendingMachine.h"
 
 _Monitor Printer;
 _Task NameServer;
@@ -15,7 +15,7 @@ _Task BottlingPlant {
   const unsigned int maxStockPerFlavour;
   const unsigned int timeBetweenShipments;
   bool shutdownFlag = false;
-  unsigned int storage[ ::NUM_FLAVOURS ];
+  unsigned int storage[ VendingMachine::Flavours::TotalFlavourNumber ];
   Truck* truck;
 
   public:

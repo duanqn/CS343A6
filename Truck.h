@@ -1,5 +1,7 @@
 #pragma once
 
+#include "VendingMachine.h"
+
 _Monitor Printer;
 _Task NameServer;
 _Task BottlingPlant;
@@ -14,6 +16,14 @@ _Task Truck {
   const unsigned int maxStockPerFlavour;
   VendingMachine** machineList = NULL;
   unsigned int vmIndex = 0;
+  unsigned int cargo[VendingMachine::Flavours::TotalFlavourNumber];
+
+  inline unsigned int remainingSoda() {
+    return  cargo[VendingMachine::Flavours::BluesBlackCherry] +
+            cargo[VendingMachine::Flavours::ClassicCreamSoda] +
+            cargo[VendingMachine::Flavours::RockRootBeer] +
+            cargo[VendingMachine::Flavours::JazzLime];
+  }
 
   public:
   Truck( Printer & prt, NameServer & nameServer, BottlingPlant & plant,

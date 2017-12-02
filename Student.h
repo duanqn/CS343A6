@@ -24,5 +24,10 @@ _Task Student {
   public:
     Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, Groupoff &groupoff,
              unsigned int id, unsigned int maxPurchases );
+
+#ifdef DEBUG
+  // a default ctor exclusively for unit tests to make dummy objects
+  Student() {}
+#endif
 };
 
