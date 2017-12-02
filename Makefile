@@ -6,7 +6,7 @@ ifneq (${TEST},)
   MAINOBJ = test/driver${TEST}.o
   CXXFLAGS += -DDEBUG
   OBJECTS2 = ${TEST}.o ${MAINOBJ} # list of object files
-  OPT := -multi
+  OPT = -multi
 else
   MAINOBJ = driver.o # the driver object
   OBJECTS2 = Truck.o ${MAINOBJ} # list of object files <ADD NEW FILE NAMES HERE>
