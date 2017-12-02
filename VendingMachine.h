@@ -6,7 +6,11 @@ class WATCard;
 
 _Task VendingMachine {
  public:
-  enum Flavours { BluesBlackCherry, ClassicCreamSoda, RockRootBeer, JazzLime }; // flavours of soda (YOU DEFINE)
+  enum Flavours { BluesBlackCherry,
+                  ClassicCreamSoda,
+                  RockRootBeer,
+                  JazzLime,
+                  TotalFlavourNumber}; // flavours of soda (YOU DEFINE)
   _Event Free {}; // free, advertisement
   _Event Funds {}; // insufficient funds
   _Event Stock {}; // out of stock for particular flavour

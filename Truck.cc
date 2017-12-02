@@ -18,7 +18,7 @@ Truck::Truck( Printer & prt, NameServer & nameServer, BottlingPlant & plant,
 }
 
 void Truck::main() {
-  unsigned int cargo[ ::NUM_FLAVOURS ];
+  unsigned int cargo[VendingMachine::Flavours::TotalFlavourNumber];
 
   for ( ;; ) {
     // yeild [1, 10] times
@@ -35,17 +35,19 @@ void Truck::main() {
 
     VM: for ( unsigned int cycleCount = 0 ;; vmIndex = ( vmIndex + 1 ) % numVendingMachines, cycleCount += 1 ) {
       // check if we have run out of cargo stock
-      if ( ( cargo[ VendingMachine::Flavours::BluesBlackCherry] == 0
-          && cargo[ VendingMachine::Flavours::ClassicCreamSoda] == 0
-          && cargo[ VendingMachine::Flavours::RockRootBeer]     == 0
-          && cargo[ VendingMachine::Flavours::JazzLime]         == 0 )
+      if ( ( cargo[VendingMachine::Flavours::BluesBlackCherry] == 0
+          && cargo[VendingMachine::Flavours::ClassicCreamSoda] == 0
+          && cargo[VendingMachine::Flavours::RockRootBeer]     == 0
+          && cargo[VendingMachine::Flavours::JazzLime]         == 0 )
           || cycleCount == numVendingMachines )
     break VM;
 
       // get the inventory for this vending machine
       unsigned int* vmStock = machineList[vmIndex]->inventory();
 
-      for ( unsigned int flavourIndex = 0; flavourIndex < ::NUM_FLAVOURS; flavourIndex += 1 ) {
+      for ( unsigned int flavourIndex = 0;
+            flavourIndex < VendingMachine::Flavours::TotalFlavourNumber;
+            flavourIndex += 1 ) {
         // determine how much to deliver 
         unsigned int delivery = ::g_config.maxStockPerFlavour - vmStock[flavourIndex];
         if ( delivery > cargo[flavourIndex] )
