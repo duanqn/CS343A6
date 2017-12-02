@@ -4,17 +4,19 @@
 #include "../NameServer.h"
 #include "../VendingMachine.h"
 #include "../config.h"
+#include "../Printer.h"
 
 #include <iostream>
+#include <sstream>
 
-_Monitor Printer {};
+static int numMachine = 3;
+static VendingMachine** machines;
+static std::ostringstream out;
 
 // NameServer test methods
 void NameServer::main() {}
-static int numMachine = 3;
-static VendingMachine** machines;
 VendingMachine** NameServer::getMachineList() {
-  std::cout << "getMachineList() " << std::endl;
+  out << "getMachineList() " << '\n';
 
   machines = new VendingMachine*[numMachine];
   for ( int i = 0; i < numMachine; i += 1 ){
@@ -26,17 +28,17 @@ VendingMachine** NameServer::getMachineList() {
 // BottlingPlant test methods
 void BottlingPlant::main() {}
 void BottlingPlant::getShipment( unsigned int cargo[] ) {
-  std::cout << "getShipment() " << std::endl
+  out << "getShipment() " << '\n'
             << "  cargo: "
             << cargo[0] << ' '
             << cargo[1] << ' '
             << cargo[2] << ' '
-            << cargo[3] << ' ' << std::endl;
+            << cargo[3] << ' ' << '\n';
 
   static int count = 0;
   count += 1;
   if ( count == 5 ) {
-    std::cout << "throw Shutdown() " << std::endl;
+    out << "throw Shutdown() " << '\n';
     throw Shutdown();
   }
 
@@ -51,13 +53,13 @@ BottlingPlant::~BottlingPlant() {}
 void VendingMachine::main() {}
 unsigned int* VendingMachine::inventory() {
   static unsigned int inventory[] = {2, 4, 8, 16};
-  std::cout << "inventory() " << std::endl
+  out << "inventory() " << '\n'
 
             << "inventory: "
             << inventory[0] << ' '
             << inventory[1] << ' '
             << inventory[2] << ' '
-            << inventory[3] << ' ' << std::endl;
+            << inventory[3] << ' ' << '\n';
   
   return inventory;
 }
@@ -68,19 +70,22 @@ MPRNG g_random( getpid() );
 ConfigParms g_config;
 
 void uMain::main() {
-  std::cout << "main() start " << std::endl;
-
+  out << "main() start " << '\n';
   ::g_config.maxStockPerFlavour = 20;
-  Printer p;
-  NameServer ns;
-  BottlingPlant bp;
-  { Truck t( p, ns, bp, numMachine, ::g_config.maxStockPerFlavour ); }
+  
+  {
+    Printer p( 1, 1, 1 );
+    NameServer ns;
+    BottlingPlant bp;
+    { Truck t( p, ns, bp, numMachine, ::g_config.maxStockPerFlavour ); }
 
-  for ( int i = 0; i < numMachine; i += 1 ) {
-    delete machines[i];
+    for ( int i = 0; i < numMachine; i += 1 ) {
+      delete machines[i];
+    }
+    delete machines;
   }
-  delete machines;
 
-  std::cout << "main() end " << std::endl;
+  out << "main() end " << '\n';
+  std::cout << out.str() << std::endl;
 }
 
