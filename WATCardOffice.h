@@ -17,7 +17,7 @@ _Task WATCardOffice {
       WATCard * former; // pass in nullptr for create()
       WATCard::FWATCard result;             // return future
       Job( unsigned int _sid, unsigned int _amount, WATCard *_card = nullptr ):
-        studentID(sid), amount(_amount), former(_card){
+        studentID(_sid), amount(_amount), former(_card){
         id = count++;
       }
     };
@@ -33,8 +33,8 @@ _Task WATCardOffice {
         Courier(WATCardOffice *office, Bank *bank, Printer *printer, unsigned int id):
           m_currentJob(nullptr), m_office(office), m_bank(bank), m_printer(printer), m_id(id){}
         ~Courier(){
-          if(currentJob != nullptr){
-            delete currentJob;
+          if(m_currentJob != nullptr){
+            delete m_currentJob;
           }
         }
     };                    // communicates with bank
