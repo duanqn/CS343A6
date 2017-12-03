@@ -11,7 +11,7 @@ m_printer(&prt),
 m_bank(&bank),
 m_numCourier(numCouriers){
   m_courierList = new Courier*[m_numCourier];
-  for(int i = 0; i < m_numCourier; ++i){
+  for(unsigned int i = 0; i < m_numCourier; ++i){
     m_courierList[i] = new Courier(this, m_bank, m_printer, i);
   }
   Job::count = 0;
@@ -19,7 +19,7 @@ m_numCourier(numCouriers){
 
 WATCardOffice::~WATCardOffice(){
   assert(m_jobQueue.empty()); // we shouldn't have jobs left
-  for(int i = 0; i < m_numCourier; ++i){
+  for(unsigned int i = 0; i < m_numCourier; ++i){
     delete m_courierList[i];  // really need to ensure no courier is blocking anywhere
   }
   delete []m_courierList;
@@ -39,7 +39,7 @@ WATCard::FWATCard WATCardOffice::transfer( unsigned int sid, unsigned int amount
   return job->result;
 }
 
-Job* WATCardOffice::requestWork(){
+WATCardOffice::Job* WATCardOffice::requestWork(){
   // mutual exclusion done by Task mechanism
   if(m_jobQueue.empty()){
     return nullptr; // we cannot always block couriers on requestWork()
@@ -77,7 +77,7 @@ void WATCardOffice::Courier::main(){
     _Accept(~Courier){
       break;
     } _Else {
-      m_currentJob = WATCardOffice::requestWork();
+      m_currentJob = m_office->requestWork();
       if(m_currentJob == nullptr){
         break;  // no more job, exit
       }
