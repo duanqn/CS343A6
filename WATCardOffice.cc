@@ -2,6 +2,9 @@
 #include "Bank.h"
 #include "Printer.h"
 #include <assert.h>
+#include "MPRNG.h"
+
+extern MPRNG g_random;
 
 WATCardOffice::WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers ):
 m_printer(&prt),
