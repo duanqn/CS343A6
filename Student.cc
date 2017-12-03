@@ -49,6 +49,11 @@ void Student::main(){  // private
           state = 'B';
         }
         myMachine->buy(favFlavour, *availableCardPtr);
+        m_printer->print(Printer::Kind::Student, state, static_cast<int>(favFlavour), availableCardPtr->getBalance());
+        if(state == 'G'){
+          // purchase with gift card
+          myGiftCardPtr.reset();
+        }
       } // try
       _CatchResume(VendingMachine::Free &e){
         // purchase is successful
@@ -87,9 +92,7 @@ void Student::main(){  // private
         // print message: select machine
         purchaseFailed = true;
       }
-      
     }while(purchaseFailed);
-    
   }
 
 
