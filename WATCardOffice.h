@@ -1,6 +1,7 @@
 #pragma once
 
 #include <queue>
+#include "WATCard.h"
 
 _Monitor Printer;
 _Monitor Bank;
