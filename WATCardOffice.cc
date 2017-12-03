@@ -1,4 +1,6 @@
 #include "WATCardOffice.h"
+#include "Bank.h"
+#include "Printer.h"
 #include <assert.h>
 
 WATCardOffice::WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers ):
