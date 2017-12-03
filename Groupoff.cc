@@ -8,7 +8,7 @@ Groupoff::Groupoff( Printer &prt, unsigned int numStudents,
   : printer( prt ), numStudents( numStudents),
     sodaCost( sodaCost ), groupoffDelay( groupoffDelay )
     {
-  giftCards = new WATCard::FWATCard[numStudents];
+  // giftCards = new WATCard::FWATCard[numStudents];
 }
 
 Groupoff::~Groupoff() {
@@ -17,11 +17,15 @@ Groupoff::~Groupoff() {
       delete giftCards[i];
     }
   }
-  delete[] giftCards;
+  // delete[] giftCards;
 }
 
 void Groupoff::main() {
   printer.print( Printer::Kind::Groupoff, 'S' );
+
+  // stack array of future watcards
+  WATCard::FWATCard giftCards[numStudents];
+  Groupoff::giftCards = giftCards;
 
   // generate a random sequence of numbers for handing out cards
   unsigned int sequence[numStudents];
