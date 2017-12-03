@@ -51,7 +51,8 @@ void Student::main(){  // private
         myMachine->buy(favFlavour, *availableCardPtr);
         m_printer->print(Printer::Kind::Student, state, static_cast<int>(favFlavour), availableCardPtr->getBalance());
         if(state == 'G'){
-          // purchase with gift card
+          // purchased with gift card
+          delete myGiftCardPtr();
           myGiftCardPtr.reset();
         }
       } // try
