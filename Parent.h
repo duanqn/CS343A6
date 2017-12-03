@@ -1,5 +1,4 @@
-#ifndef PARENT_H_
-#define PARENT_H_
+#pragma once
 
 _Task Parent{
   private:
@@ -12,5 +11,3 @@ _Task Parent{
   public:
   Parent(Printer &printer, Bank &bank, unsigned int numStudents, unsigned int parentalDelay);
 };
-
-#endif  // PARENT_H_

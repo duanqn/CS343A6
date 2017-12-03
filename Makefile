@@ -1,5 +1,5 @@
 CXX = u++					# compiler
-CXXFLAGS = -g -Wall -MMD -std=c++11      # compiler flags
+CXXFLAGS = -g -Wall -MMD -std=c++14      # compiler flags
 MAKEFILE_NAME = ${firstword ${MAKEFILE_LIST}}	# makefile name
 
 ifneq (${TEST},)
