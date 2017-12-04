@@ -31,14 +31,15 @@ void Student::main(){  // private
 
   WATCard* availableCardPtr;
   for(int purchase = 0; purchase < numPurchase; ++purchase){
-    // before buying each soda, a student yield random times in [1, 10]
-    int yield_times = g_random(1, 10);
-    yield(yield_times);
 
     bool purchaseFailed = false;
     char state = '\0';  // store the char used for output
     // make a purchase
     do{
+      // before buying each soda, a student yield random times in [1, 10]
+      int yield_times = g_random(1, 10);
+      yield(yield_times);
+
       purchaseFailed = false;
       try{
         // wait until either card is available
@@ -81,6 +82,8 @@ void Student::main(){  // private
 
         // print message: WatCard lost
         m_printer->print(Printer::Kind::Student, m_id, 'L');
+        myWatCardPtr.reset();
+        myWatCardPtr = m_office->create(m_id, Student::WATCARD_INIT_BALANCE);
         purchaseFailed = true;
       }
       catch(VendingMachine::Funds &e){
@@ -94,6 +97,8 @@ void Student::main(){  // private
         // redo select (should be instantly)
         // do not yield
         // print message: select machine
+        myMachine = m_server->getMachine(m_id);
+        m_printer->print(Printer::Kind::Student, m_id, 'V', (int)(myMachine->getId()));
         purchaseFailed = true;
       }
     }while(purchaseFailed);
