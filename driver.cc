@@ -58,7 +58,6 @@ void uMain::main() {
         seed = (unsigned int) tmpseed;
       }
       g_random.set_seed( seed );
-      std::cerr << "seed: " << seed << std::endl;
     }
     // FALL THROUGH
   case 2:
