@@ -69,13 +69,12 @@ void VendingMachine::main() {
     } // _Accept buy
 
     // dtor call put last to prevent student or truck from being left blocked
-    or _Accept( ~VendingMachine ){
-      printer.print( Printer::Kind::Vending, id, 'F' );
-      return;
+    or _Accept( ~VendingMachine ) {
+      break;
     }
-
   } // for 
   
+  printer.print( Printer::Kind::Vending, id, 'F' );
 }
 
 void VendingMachine::buy( Flavours flavour, WATCard & card ) {
