@@ -67,11 +67,11 @@ void uMain::main() {
 
 
   VendingMachine** vendingMachines;
+  Printer       printer( g_config.numStudents, g_config.numVendingMachines, g_config.numCouriers );
+  Bank             bank( g_config.numStudents );
   {
     // creates in order, the printer, bank, parent, WATCard office, groupoff, 
     //   name server, vending machines, bottling plant, and students
-    Printer     printer( g_config.numStudents, g_config.numVendingMachines, g_config.numCouriers );
-    Bank           bank( g_config.numStudents );
     Parent       parent( printer, bank, g_config.numStudents, g_config.parentalDelay );
     WATCardOffice watco( printer, bank, g_config.numCouriers );
     Groupoff   groupoff( printer, g_config.numStudents, g_config.sodaCost, g_config.groupoffDelay );
