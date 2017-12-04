@@ -8,24 +8,21 @@ Groupoff::Groupoff( Printer &prt, unsigned int numStudents,
   : printer( prt ), numStudents( numStudents),
     sodaCost( sodaCost ), groupoffDelay( groupoffDelay )
     {
-  // giftCards = new WATCard::FWATCard[numStudents];
+  giftCards = new WATCard::FWATCard[numStudents];
 }
 
 Groupoff::~Groupoff() {
   for ( unsigned int i = 0; i < numStudents; i += 1 ) {
-    if ( giftCards[i].available() ) {
+    if ( giftCards[i].cancelled() )
+      giftCards[i].reset();
+    if ( giftCards[i].available() )
       delete giftCards[i];
-    }
   }
-  // delete[] giftCards;
+  delete[] giftCards;
 }
 
 void Groupoff::main() {
   printer.print( Printer::Kind::Groupoff, 'S' );
-
-  // stack array of future watcards
-  WATCard::FWATCard giftCards[numStudents];
-  Groupoff::giftCards = giftCards;
 
   // generate a random sequence of numbers for handing out cards
   unsigned int sequence[numStudents];
