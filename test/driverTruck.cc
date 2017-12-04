@@ -67,17 +67,14 @@ void VendingMachine::restocked() {}
 
 
 MPRNG g_random( getpid() );
-ConfigParms g_config;
-
 void uMain::main() {
   out << "main() start " << '\n';
-  ::g_config.maxStockPerFlavour = 20;
   
   {
     Printer p( 1, 1, 1 );
     NameServer ns;
     BottlingPlant bp;
-    { Truck t( p, ns, bp, numMachine, ::g_config.maxStockPerFlavour ); }
+    { Truck t( p, ns, bp, numMachine, 20 ); }
 
     for ( int i = 0; i < numMachine; i += 1 ) {
       delete machines[i];

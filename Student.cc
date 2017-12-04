@@ -2,6 +2,7 @@
 #include "MPRNG.h"
 #include "config.h"
 #include "VendingMachine.h"
+#include "WATCardOffice.h"
 #include <assert.h>
 
 extern MPRNG g_random;
@@ -16,8 +17,9 @@ Student::Student(Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice
 
 void Student::main(){  // private
   int numPurchase = g_random(Student::MIN_PURCHASE, m_maxPurchases);  // [1, m_maxPurchases]
-  VendingMachine::Flavours favFlavour = static_cast<VendingMachine::Flavours>(g_random(0, 3)); // favourite flavour
-  // TODO: replace 3 with VendingMachine::Flavours::TotalFlavourNumber
+  VendingMachine::Flavours favFlavour = 
+  static_cast<VendingMachine::Flavours>(g_random(0, VendingMachine::Flavours::TotalFlavourNumber-1)); // favourite flavour
+
   m_printer->print(Printer::Kind::Student, m_id, 'S', static_cast<int>(favFlavour), numPurchase);
 
   WATCard::FWATCard myWatCardPtr = m_office->create(m_id, Student::WATCARD_INIT_BALANCE);
@@ -26,6 +28,8 @@ void Student::main(){  // private
   // reset this gift card after use
   VendingMachine * myMachine = m_server->getMachine(m_id);
   m_printer->print(Printer::Kind::Student, m_id, 'V', (int)(myMachine->getId()));
+
+  WATCard* availableCardPtr;
   for(int purchase = 0; purchase < numPurchase; ++purchase){
     // before buying each soda, a student yield random times in [1, 10]
     int yield_times = g_random(1, 10);
@@ -33,7 +37,6 @@ void Student::main(){  // private
 
     bool purchaseFailed = false;
     char state = '\0';  // store the char used for output
-    WATCard* availableCardPtr;
     // make a purchase
     do{
       purchaseFailed = false;

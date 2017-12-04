@@ -8,7 +8,8 @@ ifneq (${TEST},)
   OBJECTS2 = ${TEST}.o ${MAINOBJ} # list of object files
 else
   MAINOBJ = driver.o # the driver object
-  OBJECTS2 = Truck.o ${MAINOBJ} # list of object files <ADD NEW FILE NAMES HERE>
+  OBJECTS2 = config.o Student.o WATCard.o Bank.o Parent.o Groupoff.o VendingMachine.o \
+             NameServer.o BottlingPlant.o Truck.o Printer.o ${MAINOBJ} # list of object files
   OPT:=-O2 -multi
 endif
 

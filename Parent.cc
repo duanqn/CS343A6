@@ -1,6 +1,7 @@
 #include "Parent.h"
 #include "MPRNG.h"
-
+#include "Printer.h"
+#include "Bank.h"
 extern MPRNG g_random;
 
 Parent::Parent(Printer &printer, Bank &bank, unsigned int numStudents, unsigned int parentalDelay):
@@ -16,7 +17,7 @@ void Parent::main(){  // private
       break;  // exit on destructor call
     }
     _Else{
-      for(int i = 0; i < m_delay; ++i){
+      for(unsigned int i = 0; i < m_delay; ++i){
         yield();
       }
       // generate the amount and target for a gift

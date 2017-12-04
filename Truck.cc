@@ -7,7 +7,6 @@
 #include "Printer.h"
 
 extern MPRNG g_random;
-extern ConfigParms g_config;
 
 Truck::Truck( Printer & prt, NameServer & nameServer, BottlingPlant & plant,
   unsigned int numVendingMachines, unsigned int maxStockPerFlavour ) 
@@ -52,7 +51,7 @@ void Truck::main() {
             flavourIndex < VendingMachine::Flavours::TotalFlavourNumber;
             flavourIndex += 1 ) {
         // determine how much to deliver 
-        unsigned int delivery = ::g_config.maxStockPerFlavour - vmStock[flavourIndex];
+        unsigned int delivery = maxStockPerFlavour - vmStock[flavourIndex];
         if ( delivery > cargo[flavourIndex] ){
           // could not full restock, add difference to numNotReplenished
           numNotReplenished += delivery - cargo[flavourIndex];

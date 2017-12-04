@@ -5,6 +5,7 @@
 #include "MPRNG.h"
 
 extern MPRNG g_random;
+unsigned int WATCardOffice::Job::count = 0;
 
 WATCardOffice::WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers ):
 m_printer(&prt),

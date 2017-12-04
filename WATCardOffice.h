@@ -5,7 +5,6 @@
 
 _Monitor Printer;
 _Monitor Bank;
-class WATCard;
 
 _Task WATCardOffice {
   private:

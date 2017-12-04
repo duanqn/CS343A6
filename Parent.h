@@ -1,5 +1,8 @@
 #pragma once
 
+_Monitor Printer;
+_Monitor Bank;
+
 _Task Parent{
   private:
   void main();

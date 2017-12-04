@@ -1,5 +1,5 @@
-#ifndef PRINTER_H_
-#define PRINTER_H_
+#pragma once
+
 #include <cstring>
 #include <assert.h>
 #include <iostream>
@@ -70,4 +70,3 @@ _Monitor Printer{
   void print(Kind kind, unsigned int localID, char state, int value1, int value2);
 
 };
-#endif  // PRINTER_H_
