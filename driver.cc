@@ -49,7 +49,7 @@ void uMain::main() {
     {
       unsigned int seed;
       int tmpseed;
-      if ( ! convert( tmpseed, argv[2] ) || tmpseed < 0 ) { // invalid integer ?
+      if ( ! convert( tmpseed, argv[2] ) || tmpseed <= 0 ) { // invalid integer ?
         usage( argv );
         // exit
       } else {
