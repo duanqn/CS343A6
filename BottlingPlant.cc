@@ -45,12 +45,7 @@ void BottlingPlant::main() {
 
     // wait for the truck to get the shipment or for a terminate call
     _Accept( ~BottlingPlant ) {
-      // wait for the truck to come by and tell it to shutdown
-      shutdownFlag = true;
-      _Accept( getShipment ) {
-        printer.print( Printer::Kind::BottlingPlant, 'F' );
-        return;
-      }
+      break;
     } 
     or _Accept( getShipment ) {
       printer.print( Printer::Kind::BottlingPlant, 'P' );
@@ -58,6 +53,10 @@ void BottlingPlant::main() {
 
   } // for
 
+  // wait for the truck to come by and tell it to shutdown
+  shutdownFlag = true;
+  _Accept( getShipment )
+  printer.print( Printer::Kind::BottlingPlant, 'F' );
 }
 
 void BottlingPlant::getShipment( unsigned int cargo[] ) {
