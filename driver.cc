@@ -48,11 +48,12 @@ void uMain::main() {
   case 3:
     {
       unsigned int seed;
-      if ( ! convert( seed, argv[2] ) || seed < 0 ) { // invalid integer ?
+      if ( ! convert( seed, argv[2] )) { // invalid integer ?
         usage( argv );
       } else {
         g_random.set_seed( seed );
       }
+      std::cerr << "seed: " << seed << std::endl;
     }
     // FALL THROUGH
   case 2:
