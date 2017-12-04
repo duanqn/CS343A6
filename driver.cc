@@ -71,7 +71,6 @@ void uMain::main() {
     usage( argv );
   } // switch
 
-  std::cerr << "Hello, just testing, the size of a WATCard is: " << sizeof(WATCard) << std::endl;
   VendingMachine** vendingMachines;
   Printer       printer( g_config.numStudents, g_config.numVendingMachines, g_config.numCouriers );
   Bank             bank( g_config.numStudents );
