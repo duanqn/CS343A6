@@ -30,17 +30,15 @@ void Student::main(){  // private
   m_printer->print(Printer::Kind::Student, m_id, 'V', (int)(myMachine->getId()));
 
   WATCard* availableCardPtr;
-  for(int purchase = 0; purchase < numPurchase; ++purchase){
-
-    bool purchaseFailed = false;
+  PurchaseLoop: for(int purchase = 0; purchase < numPurchase;){ // increment of purchase is inside the loop
+    // before buying each soda, a student yield random times in [1, 10]
+    int yield_times = g_random(1, 10);
+    yield(yield_times);
+    
     char state = '\0';  // store the char used for output
+    
     // make a purchase
-    do{
-      // before buying each soda, a student yield random times in [1, 10]
-      int yield_times = g_random(1, 10);
-      yield(yield_times);
-
-      purchaseFailed = false;
+    LostCard: while(true){
       try{
         // wait until either card is available
         // place gift card in the front
@@ -59,10 +57,13 @@ void Student::main(){  // private
           delete myGiftCardPtr();
           myGiftCardPtr.reset();
         }
+        ++purchase; // purchase successful, we increment the counter by 1
+        break LostCard; // jump out of this local infinite loop
       } // try
       _CatchResume(VendingMachine::Free &e){
         // purchase is successful
         // change the state character
+        // continue looping here
         if(state == 'G'){
           state = 'a';
         }
@@ -74,6 +75,8 @@ void Student::main(){  // private
         }
         // yield 4 times
         yield(4);
+        // the purchase counter will be incremented
+        // no break here, this is a CatchResume
       }
       catch(WATCardOffice::Lost &e){
         // request another future WatCard
@@ -84,24 +87,31 @@ void Student::main(){  // private
         m_printer->print(Printer::Kind::Student, m_id, 'L');
         myWatCardPtr.reset();
         myWatCardPtr = m_office->create(m_id, Student::WATCARD_INIT_BALANCE);
-        purchaseFailed = true;
+        // do not break local loop
       }
       catch(VendingMachine::Funds &e){
         // do transfer (change myWatCardPtr)
         // redo select
-        // do not yield
-        purchaseFailed = true;
+        // redo yield
+        
+        assert(availableCardPtr == myWatCardPtr()); // This should ONLY happen to WatCards, not gift cards
+        int newBalance = myMachine->cost() + Student::WATCARD_INIT_BALANCE;
+        myWatCardPtr.reset(); // do not use this card any longer
+        myWatCardPtr = m_office->transfer(m_id, newBalance, availableCardPtr);
+        // purchase counter remains the same, no incrementing
+        break LostCard; // jump out of this local infinite loop
       }
       catch(VendingMachine::Stock &e){
         // get another machine (change myMachine)
-        // redo select (should be instantly)
-        // do not yield
+        // redo select
+        // redo yield
         // print message: select machine
         myMachine = m_server->getMachine(m_id);
         m_printer->print(Printer::Kind::Student, m_id, 'V', (int)(myMachine->getId()));
-        purchaseFailed = true;
+        // purchase counter remains the same, no incrementing
+        break LostCard; // jump out of this local infinite loop
       }
-    }while(purchaseFailed);
+    }while(lostCard);
   }
 
 
