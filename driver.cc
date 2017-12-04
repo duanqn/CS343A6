@@ -99,7 +99,6 @@ void uMain::main() {
     delete vendingMachines[id];
   delete[] vendingMachines;
   
-
   if ( infile ) delete infile;    // close file, do not delete cin!
 }
 
