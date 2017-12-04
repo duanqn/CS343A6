@@ -52,7 +52,7 @@ void Student::main(){  // private
           state = 'B';
         }
         myMachine->buy(favFlavour, *availableCardPtr);
-        m_printer->print(Printer::Kind::Student, state, static_cast<int>(favFlavour), availableCardPtr->getBalance());
+        m_printer->print(Printer::Kind::Student, m_id, state, static_cast<int>(favFlavour), availableCardPtr->getBalance());
         if(state == 'G'){
           // purchased with gift card
           delete myGiftCardPtr();
@@ -80,7 +80,7 @@ void Student::main(){  // private
         // do not yield
 
         // print message: WatCard lost
-        m_printer->print(Printer::Kind::Student, 'L');
+        m_printer->print(Printer::Kind::Student, m_id, 'L');
         purchaseFailed = true;
       }
       catch(VendingMachine::Funds &e){
@@ -114,7 +114,7 @@ void Student::main(){  // private
       // to prevent deleting a card twice
       // lost cards are deleted by WATCardOffice
       // still may print a message for the incident
-      m_printer->print(Printer::Kind::Student, 'L');
+      m_printer->print(Printer::Kind::Student, m_id, 'L');
     }
   }
   // delete GiftCard
@@ -124,5 +124,5 @@ void Student::main(){  // private
     delete availableCardPtr;
     availableCardPtr = nullptr;
   }
-  m_printer->print(Printer::Kind::Student, 'F');
+  m_printer->print(Printer::Kind::Student, m_id, 'F');
 }
