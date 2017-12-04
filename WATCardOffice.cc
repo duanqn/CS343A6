@@ -91,7 +91,6 @@ void WATCardOffice::Courier::main(){
       // print: start funds transfer
       m_bank->withdraw(m_currentJob->studentID, m_currentJob->amount);  // may wait at bank
       if(m_currentJob->former == nullptr){  // no former card
-        std::cerr << "Courier " << m_id << " creating a WATCard for student " << m_currentJob->studentID << std::endl;
         card = new WATCard; // create a new card
       }
       else{
@@ -104,7 +103,6 @@ void WATCardOffice::Courier::main(){
         // insert exception
         // delete card
         assert(card != nullptr);
-        std::cerr << "Courier " << m_id << " losing a WATCard" << std::endl;
         delete card;
         m_printer->print(Printer::Kind::Courier, m_id, 'L', m_currentJob->studentID); // print: lost card
         (m_currentJob->result).exception(new WATCardOffice::Lost);
