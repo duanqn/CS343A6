@@ -17,12 +17,12 @@ void Parent::main(){  // private
       break;  // exit on destructor call
     }
     _Else{
-      for(unsigned int i = 0; i < m_delay; ++i){
-        yield();
-      }
+      yield( m_delay );
+
       // generate the amount and target for a gift
       unsigned int money = g_random(1, 3);
       unsigned int student = g_random(0, m_numStudents - 1);
+
       // deposit the money into the bank
       m_printer->print(Printer::Kind::Parent, 'D', student, money); // print: giving money
       m_bank->deposit(student, money);

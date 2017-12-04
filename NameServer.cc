@@ -26,6 +26,9 @@ void NameServer::main() {
     }
   }
 
+  // give the truck the list
+  _Accept( getMachineList )
+
   // distributethe students across vending machines in round-robin fashion
   for ( unsigned int stud = 0, mach = 0;
         stud < numStudents;
@@ -37,9 +40,6 @@ void NameServer::main() {
     }
 
   } // for 
-
-  // give the truck the list
-  _Accept( getMachineList )
 
   for ( ;; ) {
     _Accept( getMachine ) {

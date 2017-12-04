@@ -10,7 +10,8 @@ else
   MAINOBJ = driver.o # the driver object
   OBJECTS2 = Printer.o ${MAINOBJ} config.o Student.o WATCard.o Bank.o Parent.o \
 	WATCardOffice.o Groupoff.o VendingMachine.o NameServer.o BottlingPlant.o Truck.o # list of object files
-  OPT:=-O2 #-multi 
+  OPT:=-O2 -DDEBUG#-multi 
+CXXFLAGS += -DDEBUG
 endif
 
 EXEC2 = soda
@@ -37,4 +38,4 @@ ${OBJECTS} : ${MAKEFILE_NAME}			# OPTIONAL : changes to this file => recompile
 
 clean :						# remove files that can be regenerated
 	rm -f *.d *.o test/*.d test/*.o ${EXECS}
-	rm soda*
+
