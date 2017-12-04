@@ -21,6 +21,10 @@ m_numCourier(numCouriers){
 WATCardOffice::~WATCardOffice(){
   assert(m_jobQueue.empty()); // we shouldn't have jobs left
   for(unsigned int i = 0; i < m_numCourier; ++i){
+    _Accept( requestWork )    // each courier will be waiting on requestWork and will
+                              // return nullptr from it, properly ending their main()
+  }
+  for(unsigned int i = 0; i < m_numCourier; ++i){
     delete m_courierList[i];  // really need to ensure no courier is blocking anywhere
   }
   delete []m_courierList;
