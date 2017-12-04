@@ -116,23 +116,23 @@ void Student::main(){  // private
 
 
   // delete WatCard
-  if(myWatCardPtr.available()){
-    try{
-      availableCardPtr = myWatCardPtr();
-      assert(availableCardPtr != nullptr);
-      delete availableCardPtr;
-      availableCardPtr = nullptr;
-    }
-    catch(WATCardOffice::Lost){
-      // we are just cleaning, we don't need to apply for a new card
-      // but we must deal with this exception
-      // to prevent deleting a card twice
-      // lost cards are deleted by WATCardOffice
-      // still may print a message for the incident
-      m_printer->print(Printer::Kind::Student, m_id, 'L');
-    }
+  // do not test whether it's available
+  // it will ALWAYS become available, after some time
+  try{
+    availableCardPtr = myWatCardPtr();
+    assert(availableCardPtr != nullptr);
+    delete availableCardPtr;
+    availableCardPtr = nullptr;
   }
-  // delete GiftCard
+  catch(WATCardOffice::Lost){
+    // we are just cleaning, we don't need to apply for a new card
+    // but we must deal with this exception
+    // to prevent deleting a card twice
+    // lost cards are deleted by WATCardOffice
+    // still may print a message for the incident
+    m_printer->print(Printer::Kind::Student, m_id, 'L');
+  }
+  // delete GiftCard if unused
   if(myGiftCardPtr.available()){
     availableCardPtr = myGiftCardPtr();
     assert(availableCardPtr != nullptr);
