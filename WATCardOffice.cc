@@ -73,6 +73,7 @@ void WATCardOffice::main(){ // server, scheduling
       }
     }
   }
+  m_printer->print(Printer::Kind::WATCardOffice, 'F');
 }
 
 void WATCardOffice::Courier::main(){
