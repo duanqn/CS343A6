@@ -5,18 +5,18 @@ NameServer::NameServer( Printer& prt,
   unsigned int numVendingMachines, unsigned int numStudents )
   : printer( prt ), numVendingMachines( numVendingMachines ),
     numStudents( numStudents ) 
-    {}
+    {
+  studentMachineTable = new unsigned int[numStudents];
+  machineList = new VendingMachine*[numVendingMachines];
+}
+
+NameServer::~NameServer() {
+  delete[] studentMachineTable;
+  delete[] machineList;
+}
 
 void NameServer::main() {
   printer.print( Printer::Kind::NameServer, 'S' );
-
-  // stack array to store the student machine association 
-  unsigned int studentMachineTable[numStudents];
-  NameServer::studentMachineTable = studentMachineTable;
-
-  // stack array to store each machine's address
-  VendingMachine* machineList[numVendingMachines];
-  NameServer::machineList = machineList;
 
   // register each of the machine's address
   for ( unsigned int mach = 0; mach < numVendingMachines; mach += 1 ) {
