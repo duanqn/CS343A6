@@ -22,7 +22,7 @@ using namespace std;          // direct access to std
 #include "BottlingPlant.h"
 #include "Student.h"
 
-bool convert( unsigned int &val, char *buffer ) {    // convert C string to integer
+bool convert( int &val, char *buffer ) {    // convert C string to integer
   std::stringstream ss( buffer );     // connect stream and buffer
   string temp;
   ss >> dec >> val;         // convert integer from buffer
@@ -48,11 +48,14 @@ void uMain::main() {
   case 3:
     {
       unsigned int seed;
-      if ( ! convert( seed, argv[2] )) { // invalid integer ?
+      int tmpseed;
+      if ( ! convert( tmpseed, argv[2] ) || tmpseed < 0 ) { // invalid integer ?
         usage( argv );
+        // exit
       } else {
-        g_random.set_seed( seed );
+        seed = (unsigned int) tmpseed;
       }
+      g_random.set_seed( seed );
       std::cerr << "seed: " << seed << std::endl;
     }
     // FALL THROUGH
