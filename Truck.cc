@@ -31,8 +31,7 @@ void Truck::main() {
     }}
     catch ( BottlingPlant::Shutdown ) {
       // just terminate and wait for deletion 
-      printer.print( Printer::Kind::Truck, 'F' );
-      return;
+      break;
     }
 
     VM: for ( unsigned int cycleCount = 0 ;; vmIndex = ( vmIndex + 1 ) % numVendingMachines, cycleCount += 1 ) {
@@ -69,6 +68,7 @@ void Truck::main() {
 
     } // for VM
 
-  }
+  } // for
 
+  printer.print( Printer::Kind::Truck, 'F' );
 }
