@@ -73,5 +73,8 @@ _Monitor Printer{
   void err( const char* msg ) {
     std::cerr << msg << std::endl;
   }
+  void err( int i ) {
+    std::cerr << i << ' ';
+  }
 #endif
 };
