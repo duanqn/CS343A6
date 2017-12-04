@@ -2,6 +2,7 @@
 
 #include <queue>
 #include "WATCard.h"
+#include <iostream>
 
 _Monitor Printer;
 _Monitor Bank;
@@ -18,6 +19,10 @@ _Task WATCardOffice {
       Job( unsigned int _sid, unsigned int _amount, WATCard *_card = nullptr ):
         studentID(_sid), amount(_amount), former(_card){
         id = count++;
+        std::cerr << "Job " << id << " created" << std::endl;
+      }
+      ~Job(){
+        std::cerr << "Job " << id << " recycled" << std::endl;
       }
     };
     _Task Courier { // nested

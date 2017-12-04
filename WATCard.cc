@@ -1,6 +1,16 @@
 #include "WATCard.h"
 
-WATCard::WATCard(): m_money(0u), m_mutex(1), m_bench(0){}
+#include <iostream>
+WATCard::WATCard(): m_money(0u), m_mutex(1), m_bench(0){
+  m_serialNumber = serialNumber++;  // this does not gurantee unique serial numbers
+                                    // racing could cause duplicated serial numbers
+                                    // but we are just testing
+  std::cerr << "WATCard " << m_serialNumber << " created" << std::endl;
+}
+
+WATCard::~WATCard(){
+  std::cerr << "WATCard " << m_serialNumber << " recycled" << std::endl;
+}
 
 void WATCard::deposit(unsigned int amount){
   m_mutex.P();  // acquire lock
