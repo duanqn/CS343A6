@@ -111,7 +111,7 @@ void Student::main(){  // private
         // purchase counter remains the same, no incrementing
         break LostCard; // jump out of this local infinite loop
       }
-    }while(lostCard);
+    }
   }
 
 
