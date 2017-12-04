@@ -138,6 +138,7 @@ void Student::main(){  // private
     assert(availableCardPtr != nullptr);
     delete availableCardPtr;
     availableCardPtr = nullptr;
+    myGiftCardPtr.reset();
   }
   m_printer->print(Printer::Kind::Student, m_id, 'F');
 }
