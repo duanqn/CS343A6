@@ -44,8 +44,6 @@ void VendingMachine::main() {
       else if ( ::g_random( 4 ) == 0 ) {
         // 1 in 5 chance succeded, student gets free soda
         sodaStock[studentOrder.flavour] -= 1;
-        printer.print( Printer::Kind::Vending, id, 'B', 
-          studentOrder.flavour, sodaStock[studentOrder.flavour] );
         studentOrder.response = StudentOrder::Response::Free;
       }
 
