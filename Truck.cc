@@ -62,7 +62,8 @@ void Truck::main() {
         vmStock[flavourIndex] += delivery;
       } // for
 
-      printer.print( Printer::Kind::Truck, 'U', vmIndex, numNotReplenished );
+      if ( numNotReplenished > 0 )
+        printer.print( Printer::Kind::Truck, 'U', vmIndex, numNotReplenished );
       printer.print( Printer::Kind::Truck, 'D', vmIndex, remainingSoda() );
       machineList[vmIndex]->restocked();
 
