@@ -34,15 +34,5 @@ _Task Groupoff {
     Groupoff( Printer &prt, unsigned int numStudents, unsigned int sodaCost, unsigned int groupoffDelay );
     ~Groupoff();
     WATCard::FWATCard giftCard();
-
-#ifdef DEBUG
-    // a default ctor exclusively for unit tests to make dummy objects
-    Groupoff() :
-      printer( *static_cast<Printer*>(NULL) ),
-      numStudents( 0 ),
-      sodaCost( 0 ),
-      groupoffDelay( 0 )
-      {}
-#endif
 };
 

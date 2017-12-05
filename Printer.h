@@ -68,13 +68,4 @@ _Monitor Printer{
   void print(Kind kind, unsigned int localID, char state);
   void print(Kind kind, unsigned int localID, char state, int value1);
   void print(Kind kind, unsigned int localID, char state, int value1, int value2);
-
-#ifdef DEBUG
-  void err( const char* msg ) {
-    std::cerr << msg << std::endl;
-  }
-  void err( int i ) {
-    std::cerr << i << ' ';
-  }
-#endif
 };

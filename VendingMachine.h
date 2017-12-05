@@ -42,16 +42,5 @@ _Task VendingMachine {
   void restocked();
   _Nomutex unsigned int cost();
   _Nomutex unsigned int getId();
-
-#ifdef DEBUG
-  // a default ctor exclusively for unit tests to make dummy objects
-  VendingMachine() :
-    printer( *static_cast<Printer*>(NULL) ),
-    server( *static_cast<NameServer*>(NULL) ),
-    id( 0 ),
-    sodaCost( 0 ),
-    maxStockPerFlavour( 0 )
-    {}
-#endif
 };
 

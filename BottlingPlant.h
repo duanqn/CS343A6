@@ -25,17 +25,5 @@ _Task BottlingPlant {
                unsigned int timeBetweenShipments );
   ~BottlingPlant();
   void getShipment( unsigned int cargo[] );
-
-#ifdef DEBUG
-  // a default ctor exclusively for unit tests to make dummy objects
-  BottlingPlant() :
-    printer( *static_cast<Printer*>(NULL) ),
-    server( *static_cast<NameServer*>(NULL) ),
-    numVendingMachines( 0 ),
-    maxShippedPerFlavour( 0 ),
-    maxStockPerFlavour( 0 ),
-    timeBetweenShipments( 0 ) 
-    {}
-#endif
 };
 
